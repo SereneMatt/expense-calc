@@ -1,3 +1,7 @@
+'use strict'
+
+const util = require('../service');
+
 const express = require('express');
 const router = express.Router();
 
@@ -14,13 +18,12 @@ router.get('/', (req, res) => {
 
 // @route POST api/items
 // @desc Create an item
-router.post('/', (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-    amount: req.body.amount
+router.post('/expenses', (req, res, next) => {
+  const result = util.createExpense((err, response, data) => {
+    if(!err) {
+      res.send(data);
+    }
   });
-
-  newItem.save().then(item => res.json(item));
 });
 
 // @route DELETE api/items
