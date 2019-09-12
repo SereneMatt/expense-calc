@@ -6,12 +6,10 @@ import Form from './components/Form';
 import ExpenseApi from './api/expense';
 
 export class App extends React.Component {
-  addExpense = async item => {
+  addExpense = async (spent_for) => {
     ExpenseApi.post('/expenses', {
       params: {
-        "spent_for":"transport",
-        "amount":"30.57",
-        "pricy":"true"
+        spent_for
       }
     })
   }
@@ -20,7 +18,7 @@ export class App extends React.Component {
     return (
       <div>
         <AppNavbar></AppNavbar>
-        <Form onSubmit={this.addExpense}></Form>
+        <Form onFormSubmit={this.addExpense}></Form>
       </div>
     )
   }

@@ -1,30 +1,62 @@
 import React, { Component } from 'react';
 
 export class Form extends Component {
-  state = { spent_for: '', amount: '', pricy: '' };
-  submitHandler = (e) => {
+  state = {
+    spent_for: ''
+    // formControls: {
+    //   spent_for: {
+    //     value: ''
+    //   }, 
+    //   amount: {
+    //     value: ''
+    //   },
+    //   pricy: {
+    //     value: '' 
+    //   }
+    // }
+  }
+
+  onInputChange = event => {
+    // const name = event.target.name;
+    // const value = event.target.value;
+
+    // this.setState({
+    //   formControls: {
+    //     ...this.state.formControls,
+    //     [name]: {
+    //       ...this.state.formControls[name],
+    //       value
+    //     }
+    //   }
+    // });
+    this.setState({ spent_for: event.target.value });
+  };
+
+  onFormSubmit = e => {
+    console.log('ss', this.state.spent_for)
     e.preventDefault();
-    this.props.onSubmit(this.state.spent_for, this.state.amount, this.state.pricy);
+    this.props.onFormSubmit(this.state.spent_for);
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={this.onFormSubmit}>
           <input 
-            type="text" 
+            type="text"
+            name="spent_for"
             value={this.state.spent_for} 
             placeholder="Spent for..."
-            onChange={e => {this.setState({ spent_for: e.target.value.spent_for})}} />
-          <input 
+            onChange={this.onInputChange} />
+          {/* <input 
             type="text" 
-            value={this.state.amount} 
+            value={this.state.formControls.amount.value} 
             placeholder="$"
-            onChange={e => {this.setState({ amount: e.target.value.amount })}} />
+            onChange={this.onInputChange} />
           <input 
             type="checkbox" 
-            value={this.state.pricy}
-            onChange={e => {this.setState({ pricy: e.target.value.pricy })}} />Pricy
+            value={this.state.formControls.pricy.value}
+            onChange={this.onInputChange} />Pricy */}
           <input type="submit" value="Add" />
         </form>
       </div>
