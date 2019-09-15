@@ -24,9 +24,8 @@ export class Form extends Component {
   };
 
   onFormSubmit = e => {
-    console.log('ss', this.state)
     e.preventDefault();
-    this.props.onFormSubmit(this.state.spent_for);
+    this.props.onFormSubmit(this.state.formControls.spent_for, this.state.formControls.amount, this.state.formControls.pricy);
   };
 
   render() {

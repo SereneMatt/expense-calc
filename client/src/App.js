@@ -6,10 +6,10 @@ import Form from './components/Form';
 import ExpenseApi from './api/expense';
 
 export class App extends React.Component {
-  addExpense = async (spent_for) => {
+  addExpense = async (spent_for, amount, pricy) => {
     ExpenseApi.post('/expenses', {
       params: {
-        spent_for
+        spent_for, amount, pricy
       }
     })
   }
