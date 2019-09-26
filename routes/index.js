@@ -6,11 +6,12 @@ const router = require('express').Router();
 // @route POST api/items
 // @desc Create an item
 router.post('/expenses', (req, res, next) => {
-  const result = util.createExpense((err, response, data) => {
-    if(!err) {
-      res.send(data);
-    }
-  });
+  const data = req.body;
+  util.createExpense(data);
+  res.send(data);
 });
 
+router.get('/test', (req, res) => {
+  res.send('hello');
+})
 module.exports = router;

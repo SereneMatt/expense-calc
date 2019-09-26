@@ -1,30 +1,54 @@
 import React, { Component } from 'react';
 
 export class Form extends Component {
-  state = { spent_for: '', amount: '', pricy: '' };
-  submitHandler = (e) => {
+  state = {
+    formControls: {
+      spent_for: {
+        value: ''
+      }, 
+      amount: {
+        value: ''
+      },
+      pricy: {
+        value: '' 
+      }
+    }
+  }
+
+  onInputChange = event => {
+    let formValues = this.state.formControls;
+    const name = event.target.name;
+    const value = event.target.value;
+    formValues[name] = value;
+    this.setState({formValues});
+  };
+
+  onFormSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.spent_for, this.state.amount, this.state.pricy);
+    this.props.onFormSubmit(this.state.formControls.spent_for, this.state.formControls.amount, this.state.formControls.pricy);
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={this.onFormSubmit}>
           <input 
-            type="text" 
-            value={this.state.spent_for} 
+            type="text"
+            name="spent_for"
+            value={this.state.formControls.spent_for.value} 
             placeholder="Spent for..."
-            onChange={e => {this.setState({ spent_for: e.target.value.spent_for})}} />
+            onChange={this.onInputChange} />
           <input 
-            type="text" 
-            value={this.state.amount} 
+            type="text"
+            name="amount"
+            value={this.state.formControls.amount.value} 
             placeholder="$"
-            onChange={e => {this.setState({ amount: e.target.value.amount })}} />
+            onChange={this.onInputChange} />
           <input 
-            type="checkbox" 
-            value={this.state.pricy}
-            onChange={e => {this.setState({ pricy: e.target.value.pricy })}} />Pricy
+            type="checkbox"
+            name="pricy"
+            value={this.state.formControls.pricy.value}
+            onChange={this.onInputChange} />Pricy
           <input type="submit" value="Add" />
         </form>
       </div>

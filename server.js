@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); // for logging
-const items = require('./routes/api/items');
+const cors = require('cors')
 
 const app = express();
 
 // middlewares
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
@@ -24,6 +25,21 @@ mongoose
 // end point
 const api = require('./routes');
 app.use('/api', api);
+
+app.use((req, res, next) => {
+  const error = new Error('Route not found');
+  error.status = 404;
+  next(error);
+})
+
+app.use((error, req, res, next) => {
+  res.sendStatus(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  })
+});
 
 const port = process.env.PORT || 5000;
 

@@ -11,15 +11,11 @@ const config = require('../config/endpoint');
  *  function to create expense
  * @param cb a callback function
  */
-const createExpense = (cb) => {
+const createExpense = (data) => {
   const url = config.basePath.concat('/v1/expenses');
-
+ 
   request.post(url, {
-    json: {
-      "spent_for":"croissant",
-      "amount":"30.57",
-      "pricy":"true"
-    }
+    json: data.params
   }, (error, res, body) => {
     if (error) {
       console.error(error)
@@ -31,7 +27,7 @@ const createExpense = (cb) => {
 }
 
 const serviceObject = {
-  "createExpense": createExpense
+  createExpense: createExpense
 }
 
 module.exports = serviceObject;
