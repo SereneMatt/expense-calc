@@ -26,6 +26,21 @@ mongoose
 const api = require('./routes');
 app.use('/api', api);
 
+app.use((req, res, next) => {
+  const error = new Error('Route not found');
+  error.status = 404;
+  next(error);
+})
+
+app.use((error, req, res, next) => {
+  res.sendStatus(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  })
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, (err) => {

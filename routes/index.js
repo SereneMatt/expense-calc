@@ -11,4 +11,7 @@ router.post('/expenses', (req, res, next) => {
   res.send(data);
 });
 
+router.get('/test', (req, res) => {
+  res.send('hello');
+})
 module.exports = router;
