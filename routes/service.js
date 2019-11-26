@@ -2,8 +2,8 @@
 
 // module used for making http request
 const request = require('request');
-// endpoint object
 const config = require('../config/endpoint');
+const rollbar = require('../config/rollbar');
 
 /**
  * @name createExpense
@@ -13,7 +13,8 @@ const config = require('../config/endpoint');
  */
 const createExpense = (data) => {
   const url = config.basePath.concat('/v1/expenses');
- 
+
+  rollbar.error("New expense item created");
   request.post(url, {
     json: data.params
   }, (error, res, body) => {
@@ -21,7 +22,7 @@ const createExpense = (data) => {
       console.error(error)
       return
     }
-    console.log(`statusCode: ${res.statusCode}`)
+    console.log(`statusCode: ${res.statusCode}`);
     console.log(body)
   })
 }
