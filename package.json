@@ -19,7 +19,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "rollbar": "^2.14.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
